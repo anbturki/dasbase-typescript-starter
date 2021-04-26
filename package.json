@@ -1,0 +1,51 @@
+{
+  "name": "application",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint '*/**/*.{js,ts,tsx,ts}' --quiet --fix"
+  },
+  "workspaces": [
+    "services/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/chai": "^4.2.17",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "chai": "^4.3.4",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^10.5.4",
+    "mocha": "^8.3.2",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
+  }
+}
