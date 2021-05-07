@@ -1,10 +1,15 @@
-import express from 'express';
+import { Application } from './Application';
+import { rootModule } from './modules/root/root.module';
+import { loadSchema } from './utils';
 
-const app = express();
+const app = new Application({ rootDir: __dirname });
 
-app.get('/', (request, response) => {
-  response.send('Got your request.');
+app.createApolloServer({
+  schema: loadSchema(__dirname, rootModule.getResolvers()),
 });
-app.listen(3939, () => {
-  console.log('App up and running correctly');
-});
+
+const start = () => {
+  app.listen();
+};
+
+start();
