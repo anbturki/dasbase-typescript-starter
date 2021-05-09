@@ -1,0 +1,43 @@
+version: "3"
+
+
+services: 
+  backend:
+    container_name: backend
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports: 
+      # GraphQlPort
+      - 4040:3000
+      # Express port
+      - 4041:3001
+    environment: 
+      - PGHOST=pg_database
+      - PGUSER=xiot
+      - PGDATABASE=xiot
+      - PGPASSWORD=xiot
+      - PGPORT=5432
+    depends_on: 
+      - pg_database
+    volumes:
+      - /app/node_modules
+      - ./services/backend/:/app/services/backend
+###################################
+####### DATABSE SERVICE ###########
+###################################
+  pg_database:
+    container_name: xiot_pg
+    restart: always
+    image: postgres:12
+    ports:
+      - 5432:5432
+      - 5433:5433
+    environment: 
+      - POSTGRES_USER=xiot
+      - POSTGRES_DB=xiot
+      - POSTGRES_PASSWORD=xiot
+    volumes:
+      - ./databases/backend:/var/lib/postgresql/data
+  

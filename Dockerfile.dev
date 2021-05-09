@@ -1,0 +1,57 @@
+
+FROM node:12-alpine as Builder
+WORKDIR /app/
+
+## CREATE WORKING DIRECTORY
+## copy packages.JSON FORM THE ROOT,PACKAGES,AND SERVICES
+
+ARG ROOT=.
+
+
+COPY ${ROOT}/yarn.lock .
+COPY ${ROOT}/package.json .
+COPY ${ROOT}/lerna.json .
+
+RUN npm i lerna -g
+
+COPY ${ROOT}/packages/common/package.json ./packages/common/
+
+COPY ${ROOT}/packages/auth/package.json ./packages/auth/
+
+RUN yarn install
+
+COPY ${ROOT}/packages/common ./packages/common
+
+COPY ${ROOT}/packages/auth ./packages/auth
+
+COPY ${ROOT}/tsconfig.json .
+
+RUN  lerna run build --scope @dasstack/auth --stream
+RUN  lerna run build --scope @dasstack/common --stream
+
+FROM node:12-alpine
+
+WORKDIR /app/
+
+
+COPY ./yarn.lock .
+COPY ./package.json .
+COPY ./tsconfig.json .
+COPY ./lerna.json .
+
+
+COPY --from=Builder /app/packages/auth/package.json ./packages/auth/package.json
+COPY --from=Builder /app/packages/auth/dist ./packages/auth/dist
+
+COPY --from=Builder /app/packages/common/package.json ./packages/common/package.json
+COPY --from=Builder /app/packages/common/dist ./packages/common/dist
+
+COPY ./services/backend/package.json ./services/backend/package.json
+COPY ./services/backend/tsconfig.json ./services/backend/tsconfig.json
+
+RUN yarn install
+
+
+COPY ./services/backend ./services/backend
+
+CMD yarn lerna run --stream dev --scope backend
