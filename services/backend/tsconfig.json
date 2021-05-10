@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["./src/**/*", "migration"],
-  "exclude": ["./src/**/*.spec.ts"]
+  "include": ["./src/**/*"],
+  "exclude": ["./src/**/*.spec.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@graphtypes": ["src/generated/graphql"]
+    }
+  }
 }

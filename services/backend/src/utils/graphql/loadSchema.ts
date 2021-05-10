@@ -14,7 +14,6 @@ export const loadSchema = (
 ): GraphQLSchema => {
   const gqlFiles: Array<string> = readdirSync(join(rootDir, '**/*.graphql'));
   let typeDefs = '';
-
   gqlFiles.forEach((file) => {
     typeDefs += readFileSync(file, {
       encoding: 'utf8',

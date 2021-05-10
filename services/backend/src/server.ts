@@ -1,12 +1,10 @@
+import 'reflect-metadata';
 import { Application } from './Application';
-import { rootModule } from './modules/root/root.module';
-import { loadSchema } from './utils';
+import { UsersReslovers } from './modules/users/users.reslovers';
 
-const app = new Application({ rootDir: __dirname });
+const app = new Application({ rootDir: __dirname, resolvers: [UsersReslovers] });
 
-app.createApolloServer({
-  schema: loadSchema(__dirname, rootModule.getResolvers()),
-});
+app.createApolloServer();
 
 const start = () => {
   app.listen();
