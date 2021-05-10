@@ -4,6 +4,7 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build:watch": "tsc --watch"
+    "build:watch": "tsc --watch",
+    "build": "tsc"
   }
 }
