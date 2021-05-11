@@ -15,9 +15,9 @@ services:
       - 4041:3001
     environment: 
       - PGHOST=pg_database
-      - PGUSER=xiot
-      - PGDATABASE=xiot
-      - PGPASSWORD=xiot
+      - PGUSER=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres
       - PGPORT=5432
     depends_on: 
       - pg_database
@@ -28,16 +28,16 @@ services:
 ####### DATABSE SERVICE ###########
 ###################################
   pg_database:
-    container_name: xiot_pg
+    container_name: database
     restart: always
     image: postgres:12
     ports:
       - 5432:5432
       - 5433:5433
     environment: 
-      - POSTGRES_USER=xiot
-      - POSTGRES_DB=xiot
-      - POSTGRES_PASSWORD=xiot
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
       - ./databases/backend:/var/lib/postgresql/data
   

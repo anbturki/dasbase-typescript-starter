@@ -1,28 +1,29 @@
+import { CreateUserInput, User } from '@graphtypes';
 import { Service } from 'typedi';
-
-export interface IUser {
-  id?: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
+import usersRepository from './users.repository';
 
 @Service()
 export class UsersService {
-  private users: IUser[] = [];
+  private users: User[] = [];
 
-  public create(user: IUser): IUser {
-    const newuUser = { ...user, id: this.users.length + 1 };
+  private usersRepo = usersRepository;
+
+  public async create(user: CreateUserInput): Promise<User> {
+    const newuUser = { ...user, id: (this.users.length + 1).toString() } as User;
+
     this.users.push(newuUser);
+    await this.usersRepo.create(user);
     return newuUser;
   }
 
-  public findAll(): IUser[] {
+  public async findAll(): Promise<any> {
+    const results = await this.usersRepo.find();
+    console.log(results.rows);
     return this.users;
   }
 
-  public findOne(id: number): IUser {
-    return this.users.find((user) => user.id === id) as IUser;
+  public findOne(id: number): User {
+    return this.users.find((user) => parseInt(user.id, 10) === id) as User;
   }
 }
 

@@ -8,17 +8,17 @@
     "coverage": "nyc -r lcov -e .ts -x \"src/**/*.spec.ts\" yarn test",
     "dev": "cross-env NODE_ENV=development DEBUG=app:* nodemon --config ./nodemon.json src/server.ts",
     "dev:debug": "nodemon --config ./nodemon.json --inspect-brk src/server.ts",
-    "typ:gen": "typeorm migration:generate",
-    "typ:run": "typeorm migration:run",
     "typeorm": "ts-node ../../node_modules/typeorm/cli.js",
+    "typeorm:generate": "typeorm migration:generate",
+    "typeorm:run": "typeorm migration:run",
+    "typeorm:create": "typeorm migration:create",
     "db:migrate":"node -r ts-node/register ./src/migrations.ts",
-    "typ:create": "typeorm migration:create",
     "lint": "tslint --project tsconfig.json",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "yarn prettier:base  --list-different \"src/**/*.{ts,tsx}\"",
     "prettier:write": "yarn prettier:base --write \"src/**/*.{ts,tsx}\"",
     "generate": "graphql-codegen",
-    "gql:ts": "graphql-codegen --config codegen.yml"
+    "gql:gen": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.21.4",

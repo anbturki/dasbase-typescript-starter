@@ -1,7 +1,6 @@
-import { Inject, Service } from 'typedi';
-import { CreateUserInput } from '../../generated/graphql';
+import { CreateUserInput, User } from '@graphtypes';
 import { Mutation, Query } from '../../utils/decorators/mutation.decorator';
-import usersService, { IUser, UsersService } from './users.service';
+import usersService, { UsersService } from './users.service';
 
 export class UsersReslovers {
   private usersService: UsersService = usersService;
@@ -9,11 +8,11 @@ export class UsersReslovers {
   @Mutation()
   createUser(parent: any, args: { user: CreateUserInput }) {
     const { user } = args;
-    return this.usersService.create(user as IUser);
+    return this.usersService.create(user);
   }
 
   @Query()
-  allUsers(): IUser[] {
+  allUsers(): Promise<any> {
     return this.usersService.findAll();
   }
 

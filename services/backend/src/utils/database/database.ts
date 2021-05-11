@@ -27,11 +27,15 @@ export class Database {
     return this.client;
   }
 
+  static getConnection() {
+    return Database.connection;
+  }
+
   public close() {
     return this.client.end();
   }
 
-  public exec(text: string, values: Array<any>) {
+  public exec(text: string, values?: Array<any>) {
     return this.client.query(text, values);
   }
 

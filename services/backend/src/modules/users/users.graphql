@@ -1,21 +1,23 @@
-# Types
+# TYPES
 type User {
   id: ID!
   firstName: String!
   lastName: String!
   email: String!
 }
-
-type Query {
-  user(id: ID!): User
-  allUsers:[User]
-}
-type Mutation {
-  createUser(user: CreateUserInput): User
-}
-
+# INPUTS
 input CreateUserInput {
   firstName:String
   lastName:String
   email:String!
+}
+
+# QUERIES
+type Query {
+  user(id: ID!): User
+  allUsers:[User]
+}
+# MUTATIONS
+type Mutation {
+  createUser(user: CreateUserInput): User
 }

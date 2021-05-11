@@ -161,6 +161,7 @@ Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
 
+services/backend/src/generated/
 # Folder config file
 Desktop.ini
 
@@ -250,3 +251,5 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+databases/backend
